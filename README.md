@@ -21,6 +21,7 @@ To represent the decision problem of finding a valid Still-Life pattern with a m
 If a cell is alive, it must have exactly 2 or 3 alive neighbors to remain alive (survive).
 $$Cell(r,c) \implies (Ge(2, N_{r,c}) \wedge \neg Ge(4, N_{r,c}))$$
 for each $r, c \in \{0 \dots N-1\}$.
+
 - Stability of Dead Cells
 If a cell is dead, it must not have exactly 3 alive neighbors (which would cause a birth).
 $$\neg Cell(r,c) \implies \neg(Ge(3, N_{r,c}) \wedge \neg Ge(4, N_{r,c}))$$
@@ -28,11 +29,12 @@ for each $r, c \in \{0 \dots N-1\}$.
 
 - Boundary (Halo) Constraints
 The empty space immediately surrounding the grid must remain empty. A virtual dead cell at position $(r', c')$ just outside the boundary must not experience a birth.
-$$\neg (Ge(3, N_{r',c'}) \wedge \neg Ge(4, N_{r',c'}))$$for each $(r', c')$ in the halo ring where $N_{r',c'}$ contains neighbors inside the grid.
+$$\neg (Ge(3, N_{r',c'}) \wedge \neg Ge(4, N_{r',c'}))$$
+for each $(r', c')$ in the halo ring where $N_{r',c'}$ contains neighbors inside the grid.
 
 - Global Population ConstraintThe total number of alive cells in the grid must be at least the target population $K$.
 $$Ge(K, {ALL})$$
-where ${ALL}$ is the set of all variables $\{Cell(0,0) \dots Cell(N-1,N-1)\}$.
+where ${ALL}$ is the set of all variables $\{ Cell(0,0) \dots Cell(N-1,N-1)\ }$.
 
 
 ## User documentation
