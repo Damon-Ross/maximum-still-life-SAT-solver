@@ -162,6 +162,7 @@ def print_result(model, grid_vars):
         print(row_str)
         
     print(f"Total Population: {count}")
+    print(f"Density: {(count / (n*n)):.4f}")
 
 def parse_model(result, verbose = False):
     if result.returncode != 10: # 10 = SAT, 20 = UNSAT
