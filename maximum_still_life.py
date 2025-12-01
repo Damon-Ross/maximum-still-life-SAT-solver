@@ -163,11 +163,12 @@ def print_result(model, grid_vars):
         
     print(f"Total Population: {count}")
 
-def parse_model(result):
+def parse_model(result, verbose = False):
     if result.returncode != 10: # 10 = SAT, 20 = UNSAT
         return None
         
     output_str = result.stdout.decode('utf-8')
+    if verbose: print(output_str)
     model = set()
     for line in output_str.split('\n'):
         if line.startswith("v"):
@@ -175,7 +176,7 @@ def parse_model(result):
             for p in parts:
                 if p != 'v':
                     val = int(p)
-                    if val > 0: model.add(val)
+                    if val > 0: model.add(val) 
     return model
 
 def find_maximum(n, args):
@@ -186,12 +187,12 @@ def find_maximum(n, args):
 
     while low <= high:
         mid = (low + high) // 2
-        print(f"Checking population >= {mid}...")
-
+        
         cnf, num_var, grid_vars = encode(n, mid)
 
         result = call_solver(cnf, num_var, args.output, args.solver, args.verb)
-        model = parse_model(result)
+        model = parse_model(result, args.verb == 1)
+        print(f"Checking population >= {mid}...")
 
         if model:
             print("SAT.")
